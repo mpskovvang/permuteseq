@@ -38,6 +38,8 @@ static int64 cycle_walking_cipher(int64 minval, int64 maxval,
 				  int64 value, uint64 key,
 				  int direction);
 
+uint32 hash_bytes_uint32_fork(uint32 k);
+
 /*
  * Compute the difference between the min and max of the sequence,
  * avoiding an integer overflow.
