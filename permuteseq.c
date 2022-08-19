@@ -247,12 +247,14 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 		hsz++;
 
 	mask = (1 << hsz) - 1;
+	
+	return (uint32) sizeof(uint32);
 
 	/* Scramble the key. This is not strictly necessary, but will
 	   help if the user-supplied key is weak, for instance with only a
 	   few right-most bits set. */
-	crypt_key = (crypt_key & 0xffffffff) |
-		((uint64)((crypt_key >> 32) & 0xffffffff)) << 32;
+	crypt_key = hash_uint32(crypt_key & 0xffffffff) |
+		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32;
 	
 	return crypt_key;
 
