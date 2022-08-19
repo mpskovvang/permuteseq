@@ -253,9 +253,9 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
                  c;
 	
 	a = b = c = 0x9e3779b9 + (uint32) sizeof(uint32) + 3923095;
-     	a += crypt_key & 0xffffffff;
+     	/*a += crypt_key & 0xffffffff;*/
 	
-	return crypt_key & 0xffffffff;
+	return a;
 
 	/* Scramble the key. This is not strictly necessary, but will
 	   help if the user-supplied key is weak, for instance with only a
