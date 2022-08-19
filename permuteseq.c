@@ -245,6 +245,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	hsz = 1;
 	while (hsz < 32 && ((uint64)1<<(2*hsz)) < interval)
 		hsz++;
+	
+	return hsz;
 
 	mask = (1 << hsz) - 1;
 
