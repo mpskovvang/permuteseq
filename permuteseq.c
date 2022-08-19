@@ -262,7 +262,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	/* Scramble the key. This is not strictly necessary, but will
 	   help if the user-supplied key is weak, for instance with only a
 	   few right-most bits set. */
-	crypt_key = hash_uint32(crypt_key) /*|
+	crypt_key = hash_bytes_uint32_fork(crypt_key) /*|
 		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32*/;
 	
 	return crypt_key;
@@ -309,3 +309,22 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	/* Convert the offset in the interval to an absolute value, possibly negative. */
 	return minval + result;
 }
+
+
+uint32
+ hash_bytes_uint32_fork(uint32 k)
+ {
+     uint32      a,
+                 b,
+                 c;
+  
+     a = b = c = 0x9e3779b9 + (uint32) sizeof(uint32) + 3923095;
+     a += k;
+	
+	return a;
+  
+     final(a, b, c);
+  
+     /* report the result */
+     return c;
+ }
