@@ -323,7 +323,7 @@ uint32
 	
 	return a;
   
-     final(a, b, c);
+     /*final(a, b, c);*/
   
      /* report the result */
      return c;
