@@ -312,6 +312,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	return minval + result;
 }
 
+#include "port/pg_bitutils.h"
+
 #define rot(x,k) pg_rotate_left32(x, k)
 
  #define final(a,b,c) \
