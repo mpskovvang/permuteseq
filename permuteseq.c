@@ -264,7 +264,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	/* Scramble the key. This is not strictly necessary, but will
 	   help if the user-supplied key is weak, for instance with only a
 	   few right-most bits set. */
-	crypt_key = hash_uint32(crypt_key & 0xffffffff) /*|
+	crypt_key = hash_bytes_uint32_fork(crypt_key & 0xffffffff) /*|
 		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32*/;
 	
 	return crypt_key;
@@ -313,6 +313,25 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 }
 
 
+static inline uint32
+ pg_rotate_left32(uint32 word, int n)
+ {
+     return (word << n) | (word >> (32 - n));
+ }
+
+ #define rot(x,k) pg_rotate_left32(x, k)
+
+#define final(a,b,c) \
+ { \
+   c ^= b; c -= rot(b,14); \
+   /*a ^= c; a -= rot(c,11); \
+   b ^= a; b -= rot(a,25); \
+   c ^= b; c -= rot(b,16); \
+   a ^= c; a -= rot(c, 4); \
+   b ^= a; b -= rot(a,14); \
+   c ^= b; c -= rot(b,24);*/ \
+ }
+
 uint32
  hash_bytes_uint32_fork(uint32 k)
  {
@@ -325,7 +344,7 @@ uint32
 	
 	//return a;
   
-     /*final(a, b, c);*/
+     final(a, b, c);
   
      /* report the result */
      return c;
