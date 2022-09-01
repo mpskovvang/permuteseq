@@ -323,9 +323,9 @@ uint32
      a = b = c = 0x9e3779b9 + (uint32) sizeof(uint32) + 3923095;
      a += k;
 	
-	return a;
+	//return a;
   
-     /*final(a, b, c);*/
+     final(a, b, c);
   
      /* report the result */
      return c;
