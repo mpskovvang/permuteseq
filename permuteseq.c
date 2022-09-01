@@ -312,6 +312,18 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	return minval + result;
 }
 
+#define rot(x,k) pg_rotate_left32(x, k)
+
+ #define final(a,b,c) \
+ { \
+   c ^= b; c -= rot(b,14); \
+   a ^= c; a -= rot(c,11); \
+   b ^= a; b -= rot(a,25); \
+   c ^= b; c -= rot(b,16); \
+   a ^= c; a -= rot(c, 4); \
+   b ^= a; b -= rot(a,14); \
+   c ^= b; c -= rot(b,24); \
+ }
 
 uint32
  hash_bytes_uint32_fork(uint32 k)
