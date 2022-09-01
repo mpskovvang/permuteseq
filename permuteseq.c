@@ -289,7 +289,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			Ki = crypt_key >> ((hsz* (direction==0 ? i : NR-1-i))&0x3f);
 			Ki += (direction==0 ? i : NR-1-i);
 			
-			return l1;
+			return l1 ^ DatumGetUInt32(hash_uint32(r1));
 			
 			r2 = (l1 ^ DatumGetUInt32(hash_uint32(r1))
 			         ^ DatumGetUInt32(hash_uint32(Ki))
