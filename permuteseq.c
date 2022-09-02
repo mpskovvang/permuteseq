@@ -295,8 +295,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			l1 = l2;
 			r1 = r2;
 		}
-		return r1;
 		result = ((uint64)r1 << hsz) | l1;
+		return result;
 		/* swap one more time to prepare for the next cycle */
 		l1 = r2;
 		r1 = l2;
