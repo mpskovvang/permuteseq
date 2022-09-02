@@ -275,11 +275,10 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	l1 = (value - minval) >> hsz;
 	r1 = (value - minval) & mask;
 	
-	int test = 0;
+	return minval;
 
 	do			/* cycle walking */
 	{
-		test++;
 		for (i = 0; i < NR; i++) /* Feistel network */
 		{
 			l2 = r1;
@@ -304,7 +303,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 		r1 = l2;
 	} while ((result > maxval - minval) && walk_count++ < walk_max);
 	
-	return test;
+	return result;
 
 	if (walk_count >= walk_max)
 	{
