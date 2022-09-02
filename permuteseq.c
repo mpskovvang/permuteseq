@@ -301,7 +301,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 		r1 = l2;
 	} while ((result > maxval - minval) && walk_count++ < walk_max);
 	
-	return result;
+	return walk_count;
 
 	if (walk_count >= walk_max)
 	{
