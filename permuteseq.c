@@ -273,9 +273,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	   Work with the offset into the interval rather than the actual value.
 	   This allows to use the full 32-bit range. */
 	l1 = (value - minval) >> hsz;
-	r1 = (value - minval); /*& mask;*/
-	
-	return r1;
+	r1 = (value - minval) & mask;
 
 	do			/* cycle walking */
 	{
