@@ -275,7 +275,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	l1 = (value - minval) >> hsz;
 	r1 = (value - minval) & mask;
 	
-	return mask;
+	return r1;
 
 	do			/* cycle walking */
 	{
