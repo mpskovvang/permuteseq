@@ -299,6 +299,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 		/* swap one more time to prepare for the next cycle */
 		l1 = r2;
 		r1 = l2;
+		
+		return result;
 	} while ((result > maxval - minval) && walk_count++ < walk_max);
 	
 	return walk_count;
