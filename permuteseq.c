@@ -274,8 +274,6 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	   This allows to use the full 32-bit range. */
 	l1 = (value - minval) >> hsz;
 	r1 = (value - minval) & mask;
-	
-	return l1;
 
 	do			/* cycle walking */
 	{
@@ -302,6 +300,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 		l1 = r2;
 		r1 = l2;
 	} while ((result > maxval - minval) && walk_count++ < walk_max);
+	
+	return walk_count;
 
 	if (walk_count >= walk_max)
 	{
