@@ -267,7 +267,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	crypt_key = hash_uint32(crypt_key & 0xffffffff) |
 		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32;
 	
-	elog(DEBUG1, "permuteseq: crypt_key=%u", crypt_key);
+	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu64"", crypt_key);
 	
 	//return crypt_key;
 
@@ -291,15 +291,15 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			Ki = crypt_key >> ((hsz* (direction==0 ? i : NR-1-i))&0x3f);
 			Ki += (direction==0 ? i : NR-1-i);
 			
-			elog(DEBUG1, "permuteseq: l1=%u", l1);
-			elog(DEBUG1, "permuteseq: r1=%u", r1);
-			elog(DEBUG1, "permuteseq: Ki=%u", Ki);
+			elog(DEBUG1, "permuteseq: l1=%"PRIu32"", l1);
+			elog(DEBUG1, "permuteseq: r1=%"PRIu32"", r1);
+			elog(DEBUG1, "permuteseq: Ki=%"PRIu32"", Ki);
 			
 			r2 = (l1 ^ DatumGetUInt32(hash_uint32(r1))
 			         ^ DatumGetUInt32(hash_uint32(Ki))
 			      ) & mask;
 			
-			elog(DEBUG1, "permuteseq: r2=%u", r2);
+			elog(DEBUG1, "permuteseq: r2=%"PRIu32"", r2);
 			
 			l1 = l2;
 			r1 = r2;
