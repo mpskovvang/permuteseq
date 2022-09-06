@@ -219,9 +219,7 @@ range_decrypt_element(PG_FUNCTION_ARGS)
  */
 static int64
 cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, int direction)
-{
-	client_min_messages=DEBUG1;
-	
+{	
 	/* Arbitrary maximum number of "walks" along the results
 	   searching for a value inside the [minval,maxval] range.
 	   It's mainly to avoid an infinite loop in case the chain of
