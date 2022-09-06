@@ -316,8 +316,6 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 		r1 = l2;
 	} while ((result > maxval - minval) && walk_count++ < walk_max);
 
-	return crypt_key;
-
 	if (walk_count >= walk_max)
 	{
 		ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
