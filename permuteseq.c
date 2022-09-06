@@ -296,7 +296,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			l1 = l2;
 			r1 = r2;
 		
-			if (i == 1) {
+			if (i == 2) {
 				return l1;
 			}
 		}
