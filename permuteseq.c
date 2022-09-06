@@ -267,7 +267,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	crypt_key = hash_uint32(crypt_key & 0xffffffff) |
 		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32;
 	
-	//return crypt_key;
+	return crypt_key;
 
 	/* Initialize the two half blocks.
 	   Work with the offset into the interval rather than the actual value.
