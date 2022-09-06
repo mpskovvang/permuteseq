@@ -297,7 +297,7 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			r1 = r2;
 		}
 		
-		return $l1;
+		return l1;
 		
 		result = ((uint64)r1 << hsz) | l1;
 		
