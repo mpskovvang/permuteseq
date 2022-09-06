@@ -220,6 +220,8 @@ range_decrypt_element(PG_FUNCTION_ARGS)
 static int64
 cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, int direction)
 {
+	client_min_messages=DEBUG1;
+	
 	/* Arbitrary maximum number of "walks" along the results
 	   searching for a value inside the [minval,maxval] range.
 	   It's mainly to avoid an infinite loop in case the chain of
@@ -267,6 +269,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	crypt_key = hash_uint32(crypt_key & 0xffffffff) |
 		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32;
 	
+	elog(DEBUG1, "permuteseq: crypt_key=%d", crypt_key);
+	
 	//return crypt_key;
 
 	/* Initialize the two half blocks.
@@ -289,13 +293,15 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			Ki = crypt_key >> ((hsz* (direction==0 ? i : NR-1-i))&0x3f);
 			Ki += (direction==0 ? i : NR-1-i);
 			
-			elog(LOG, "permuteseq: l1=%d", l1);
-			elog(LOG, "permuteseq: r1=%d", r1);
-			elog(LOG, "permuteseq: Ki=%d", Ki);
+			elog(DEBUG1, "permuteseq: l1=%d", l1);
+			elog(DEBUG1, "permuteseq: r1=%d", r1);
+			elog(DEBUG1, "permuteseq: Ki=%d", Ki);
 			
 			r2 = (l1 ^ DatumGetUInt32(hash_uint32(r1))
 			         ^ DatumGetUInt32(hash_uint32(Ki))
 			      ) & mask;
+			
+			elog(DEBUG1, "permuteseq: r2=%d", r2);
 			
 			l1 = l2;
 			r1 = r2;
