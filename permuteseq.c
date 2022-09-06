@@ -293,11 +293,11 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 			         ^ DatumGetUInt32(hash_uint32(Ki))
 			      ) & mask;
 			
-			return r2;
-			
 			l1 = l2;
 			r1 = r2;
 		}
+		
+		return $l1;
 		
 		result = ((uint64)r1 << hsz) | l1;
 		
