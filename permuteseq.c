@@ -263,15 +263,21 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	
 	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu64"", crypt_key);
 	
-	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu32"", hash_uint32(crypt_key & 0xffffffff));
+	uint32 a = hash_uint32(crypt_key & 0xffffffff);
 	
-	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu64"", ((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)));
+	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu32"", a);
+	
+	uint32 b = hash_uint32((crypt_key >> 32) & 0xffffffff);
+	
+	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu32"", b);
+	
+	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu64"", (uint64) b);
 
 	/* Scramble the key. This is not strictly necessary, but will
 	   help if the user-supplied key is weak, for instance with only a
 	   few right-most bits set. */
-	crypt_key = (hash_uint32(crypt_key & 0xffffffff) |
-		((uint64)hash_uint32((crypt_key >> 32) & 0xffffffff)) << 32); // & 0x7FFFFFFFFFFFFFFF;
+	crypt_key = (a |
+		((uint64)b) << 32); // & 0x7FFFFFFFFFFFFFFF;
 	
 	elog(DEBUG1, "permuteseq: crypt_key=%"PRIu64"", crypt_key);
 	
