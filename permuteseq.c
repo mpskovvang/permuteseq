@@ -240,6 +240,8 @@ cycle_walking_cipher(int64 minval, int64 maxval, int64 value, uint64 crypt_key, 
 	int walk_count = 0;
 	int i;
 	uint64 result;		/* offset into the interval */
+	
+	elog(DEBUG1, "permuteseq: interval=%"PRIu64"", interval);
 
 	/* Compute the half block size: it's the smallest power of 2 such as two
 	   blocks are greater than or equal to the size of interval in bits. The
